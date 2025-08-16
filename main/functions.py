@@ -44,8 +44,7 @@ def import_function_from_file(file_path, func_name):
 def start_file_for_user(sender, app_data, user_data):
     if os.path.isfile(user_data):
         try:  # добавить асинхроность или в другой поток
-            venv_python = os.path.join(sys.prefix, 'bin', 'python')
-            subprocess.Popen([venv_python, user_data])
+            subprocess.Popen(['python', user_data])
             dpg.configure_item('error_user_program', default_value='Succes!')
         except:
             dpg.configure_item('error_user_program', default_value='Error')
@@ -148,8 +147,7 @@ def run_script(script_path, *args):
             arguments = arguments()
             for i in range(min([len(arguments), len(args)])):
                 lst.append(f'{arguments[i]}={args[i]}')
-            venv_python = os.path.join(sys.prefix, 'bin', 'python')
-            command = [venv_python, script_path] + lst
+            command = ['python', script_path] + lst
             # Запускаем процесс и ожидаем его завершения
             result = subprocess.run(command, capture_output=True, text=True, check=True)
             # Выводим stdout и stderr
